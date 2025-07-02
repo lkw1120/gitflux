@@ -1,5 +1,5 @@
 // 정적 노드 데이터 - 빌드 타임에 포함
-import nodesJson from '../public/github-actions-nodes.json'
+import nodesJson from './github-actions-nodes.json'
 
 export const nodesData = nodesJson
 

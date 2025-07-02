@@ -1,0 +1,541 @@
+{
+  "nodeCategories": [
+    {
+      "title": "Source Control",
+      "nodes": [
+        {
+          "type": "checkout",
+          "name": "Checkout",
+          "icon": "GitBranch",
+          "color": "bg-blue-500",
+          "description": "Check out repository code",
+          "marketplace": "actions/checkout@v4",
+          "config": {
+            "repository": "actions/checkout@v4",
+            "fetch-depth": 1,
+            "token": "${{ github.token }}",
+            "ref": "${{ github.head_ref }}",
+            "run": ""
+          }
+        },
+        {
+          "type": "cache",
+          "name": "Cache",
+          "icon": "HardDrive",
+          "color": "bg-indigo-500",
+          "description": "Cache dependencies and build outputs",
+          "marketplace": "actions/cache@v3",
+          "config": {
+            "repository": "actions/cache@v3",
+            "path": "~/.npm",
+            "key": "${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}",
+            "restore-keys": "${{ runner.os }}-node-",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Language & Runtime Setup",
+      "nodes": [
+        {
+          "type": "setup-node",
+          "name": "Setup Node.js",
+          "icon": "Code",
+          "color": "bg-green-500",
+          "description": "Set up Node.js environment",
+          "marketplace": "actions/setup-node@v4",
+          "config": {
+            "repository": "actions/setup-node@v4",
+            "node-version": "18",
+            "cache": "npm",
+            "registry-url": "https://registry.npmjs.org/",
+            "run": ""
+          }
+        },
+        {
+          "type": "setup-java",
+          "name": "Setup Java",
+          "icon": "Coffee",
+          "color": "bg-orange-600",
+          "description": "Set up Java JDK",
+          "marketplace": "actions/setup-java@v3",
+          "config": {
+            "repository": "actions/setup-java@v3",
+            "java-version": "11",
+            "distribution": "temurin",
+            "cache": "maven",
+            "run": ""
+          }
+        },
+        {
+          "type": "setup-python",
+          "name": "Setup Python",
+          "icon": "Code",
+          "color": "bg-blue-600",
+          "description": "Set up Python environment",
+          "marketplace": "actions/setup-python@v4",
+          "config": {
+            "repository": "actions/setup-python@v4",
+            "python-version": "3.9",
+            "cache": "pip",
+            "run": ""
+          }
+        },
+        {
+          "type": "setup-go",
+          "name": "Setup Go",
+          "icon": "Zap",
+          "color": "bg-cyan-500",
+          "description": "Set up Go environment",
+          "marketplace": "actions/setup-go@v4",
+          "config": {
+            "repository": "actions/setup-go@v4",
+            "go-version": "1.19",
+            "cache": true,
+            "run": ""
+          }
+        },
+        {
+          "type": "setup-dotnet",
+          "name": "Setup .NET",
+          "icon": "Monitor",
+          "color": "bg-purple-600",
+          "description": "Set up .NET Core SDK",
+          "marketplace": "actions/setup-dotnet@v3",
+          "config": {
+            "repository": "actions/setup-dotnet@v3",
+            "dotnet-version": "6.0.x",
+            "run": ""
+          }
+        },
+        {
+          "type": "setup-ruby",
+          "name": "Setup Ruby",
+          "icon": "Package",
+          "color": "bg-red-500",
+          "description": "Set up Ruby environment",
+          "marketplace": "ruby/setup-ruby@v1",
+          "config": {
+            "repository": "ruby/setup-ruby@v1",
+            "ruby-version": "3.0",
+            "bundler": "latest",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Build & Package",
+      "nodes": [
+        {
+          "type": "build-gradle",
+          "name": "Gradle Build",
+          "icon": "Settings",
+          "color": "bg-green-600",
+          "description": "Build with Gradle",
+          "marketplace": "gradle/gradle-build-action@v2",
+          "config": {
+            "repository": "gradle/gradle-build-action@v2",
+            "arguments": "build",
+            "build-root-directory": ".",
+            "run": ""
+          }
+        },
+        {
+          "type": "build-maven",
+          "name": "Maven Build",
+          "icon": "Package",
+          "color": "bg-orange-500",
+          "description": "Build with Maven",
+          "marketplace": "Custom Maven Build",
+          "config": {
+            "run": "mvn clean compile test package"
+          }
+        },
+        {
+          "type": "docker-build",
+          "name": "Docker Build & Push",
+          "icon": "Container",
+          "color": "bg-blue-700",
+          "description": "Build and push Docker images",
+          "marketplace": "docker/build-push-action@v5",
+          "config": {
+            "repository": "docker/build-push-action@v5",
+            "context": ".",
+            "push": true,
+            "tags": "${{ github.repository }}:latest",
+            "run": ""
+          }
+        },
+        {
+          "type": "docker-setup",
+          "name": "Docker Setup Buildx",
+          "icon": "Layers",
+          "color": "bg-blue-600",
+          "description": "Set up Docker Buildx",
+          "marketplace": "docker/setup-buildx-action@v3",
+          "config": {
+            "repository": "docker/setup-buildx-action@v3",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Testing & Quality",
+      "nodes": [
+        {
+          "type": "super-linter",
+          "name": "Super Linter",
+          "icon": "Shield",
+          "color": "bg-green-700",
+          "description": "Lint code with Super Linter",
+          "marketplace": "github/super-linter@v4",
+          "config": {
+            "repository": "github/super-linter@v4",
+            "default-branch": "main",
+            "github-token": "${{ secrets.GITHUB_TOKEN }}",
+            "validate-all-codebase": false,
+            "run": ""
+          }
+        },
+        {
+          "type": "codecov",
+          "name": "Codecov",
+          "icon": "Eye",
+          "color": "bg-pink-500",
+          "description": "Upload coverage to Codecov",
+          "marketplace": "codecov/codecov-action@v3",
+          "config": {
+            "repository": "codecov/codecov-action@v3",
+            "token": "${{ secrets.CODECOV_TOKEN }}",
+            "file": "./coverage.xml",
+            "run": ""
+          }
+        },
+        {
+          "type": "sonarcloud",
+          "name": "SonarCloud Scan",
+          "icon": "CheckCircle",
+          "color": "bg-orange-600",
+          "description": "Analyze code with SonarCloud",
+          "marketplace": "SonarSource/sonarcloud-github-action@master",
+          "config": {
+            "repository": "SonarSource/sonarcloud-github-action@master",
+            "env": {
+              "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}",
+              "SONAR_TOKEN": "${{ secrets.SONAR_TOKEN }}"
+            },
+            "run": ""
+          }
+        },
+        {
+          "type": "test-reporter",
+          "name": "Test Reporter",
+          "icon": "TestTube",
+          "color": "bg-yellow-600",
+          "description": "Publish test results",
+          "marketplace": "dorny/test-reporter@v1",
+          "config": {
+            "repository": "dorny/test-reporter@v1",
+            "name": "Test Results",
+            "path": "test-results.xml",
+            "reporter": "jest-junit",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Security & Compliance",
+      "nodes": [
+        {
+          "type": "dependency-review",
+          "name": "Dependency Review",
+          "icon": "Shield",
+          "color": "bg-red-600",
+          "description": "Review dependency changes",
+          "marketplace": "actions/dependency-review-action@v3",
+          "config": {
+            "repository": "actions/dependency-review-action@v3",
+            "run": ""
+          }
+        },
+        {
+          "type": "codeql",
+          "name": "CodeQL Analysis",
+          "icon": "Lock",
+          "color": "bg-gray-700",
+          "description": "Perform CodeQL security analysis",
+          "marketplace": "github/codeql-action/analyze@v2",
+          "config": {
+            "repository": "github/codeql-action/analyze@v2",
+            "languages": "javascript",
+            "run": ""
+          }
+        },
+        {
+          "type": "snyk",
+          "name": "Snyk Security",
+          "icon": "AlertTriangle",
+          "color": "bg-purple-700",
+          "description": "Scan for vulnerabilities with Snyk",
+          "marketplace": "snyk/actions/node@master",
+          "config": {
+            "repository": "snyk/actions/node@master",
+            "env": {
+              "SNYK_TOKEN": "${{ secrets.SNYK_TOKEN }}"
+            },
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Cloud & Deployment",
+      "nodes": [
+        {
+          "type": "aws-configure",
+          "name": "Configure AWS",
+          "icon": "Cloud",
+          "color": "bg-yellow-500",
+          "description": "Configure AWS credentials",
+          "marketplace": "aws-actions/configure-aws-credentials@v4",
+          "config": {
+            "repository": "aws-actions/configure-aws-credentials@v4",
+            "aws-access-key-id": "${{ secrets.AWS_ACCESS_KEY_ID }}",
+            "aws-secret-access-key": "${{ secrets.AWS_SECRET_ACCESS_KEY }}",
+            "aws-region": "us-east-1",
+            "run": ""
+          }
+        },
+        {
+          "type": "azure-login",
+          "name": "Azure Login",
+          "icon": "Cloud",
+          "color": "bg-blue-600",
+          "description": "Login to Azure",
+          "marketplace": "azure/login@v1",
+          "config": {
+            "repository": "azure/login@v1",
+            "creds": "${{ secrets.AZURE_CREDENTIALS }}",
+            "run": ""
+          }
+        },
+        {
+          "type": "gcp-auth",
+          "name": "GCP Auth",
+          "icon": "Cloud",
+          "color": "bg-red-500",
+          "description": "Authenticate with Google Cloud",
+          "marketplace": "google-github-actions/auth@v1",
+          "config": {
+            "repository": "google-github-actions/auth@v1",
+            "credentials_json": "${{ secrets.GCP_SA_KEY }}",
+            "run": ""
+          }
+        },
+        {
+          "type": "vercel-deploy",
+          "name": "Deploy to Vercel",
+          "icon": "Upload",
+          "color": "bg-black",
+          "description": "Deploy to Vercel",
+          "marketplace": "amondnet/vercel-action@v25",
+          "config": {
+            "repository": "amondnet/vercel-action@v25",
+            "vercel-token": "${{ secrets.VERCEL_TOKEN }}",
+            "vercel-org-id": "${{ secrets.ORG_ID }}",
+            "vercel-project-id": "${{ secrets.PROJECT_ID }}",
+            "run": ""
+          }
+        },
+        {
+          "type": "netlify-deploy",
+          "name": "Deploy to Netlify",
+          "icon": "Globe",
+          "color": "bg-teal-500",
+          "description": "Deploy to Netlify",
+          "marketplace": "nwtgck/actions-netlify@v2.0",
+          "config": {
+            "repository": "nwtgck/actions-netlify@v2.0",
+            "publish-dir": "./dist",
+            "github-token": "${{ secrets.GITHUB_TOKEN }}",
+            "deploy-message": "Deploy from GitHub Actions",
+            "run": ""
+          }
+        },
+        {
+          "type": "heroku-deploy",
+          "name": "Deploy to Heroku",
+          "icon": "Server",
+          "color": "bg-purple-600",
+          "description": "Deploy to Heroku",
+          "marketplace": "akhileshns/heroku-deploy@v3.12.14",
+          "config": {
+            "repository": "akhileshns/heroku-deploy@v3.12.14",
+            "heroku_api_key": "${{ secrets.HEROKU_API_KEY }}",
+            "heroku_app_name": "your-app-name",
+            "heroku_email": "your-email@example.com",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Mobile & Desktop",
+      "nodes": [
+        {
+          "type": "android-build",
+          "name": "Android Build",
+          "icon": "Smartphone",
+          "color": "bg-green-600",
+          "description": "Build Android app",
+          "marketplace": "Custom Android Build",
+          "config": {
+            "run": "./gradlew assembleRelease"
+          }
+        },
+        {
+          "type": "ios-build",
+          "name": "iOS Build",
+          "icon": "Smartphone",
+          "color": "bg-gray-600",
+          "description": "Build iOS app",
+          "marketplace": "Custom iOS Build",
+          "config": {
+            "run": "xcodebuild -workspace App.xcworkspace -scheme App -configuration Release"
+          }
+        },
+        {
+          "type": "electron-build",
+          "name": "Electron Build",
+          "icon": "Monitor",
+          "color": "bg-blue-500",
+          "description": "Build Electron app",
+          "marketplace": "samuelmeuli/action-electron-builder@v1",
+          "config": {
+            "repository": "samuelmeuli/action-electron-builder@v1",
+            "github_token": "${{ secrets.github_token }}",
+            "release": true,
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Notifications & Communication",
+      "nodes": [
+        {
+          "type": "slack-notify",
+          "name": "Slack Notification",
+          "icon": "Bell",
+          "color": "bg-purple-500",
+          "description": "Send Slack notification",
+          "marketplace": "8398a7/action-slack@v3",
+          "config": {
+            "repository": "8398a7/action-slack@v3",
+            "status": "${{ job.status }}",
+            "webhook_url": "${{ secrets.SLACK_WEBHOOK }}",
+            "channel": "#ci-cd",
+            "run": ""
+          }
+        },
+        {
+          "type": "discord-notify",
+          "name": "Discord Notification",
+          "icon": "Bell",
+          "color": "bg-indigo-600",
+          "description": "Send Discord notification",
+          "marketplace": "Ilshidur/action-discord@master",
+          "config": {
+            "repository": "Ilshidur/action-discord@master",
+            "args": "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.",
+            "env": {
+              "DISCORD_WEBHOOK": "${{ secrets.DISCORD_WEBHOOK }}"
+            },
+            "run": ""
+          }
+        },
+        {
+          "type": "teams-notify",
+          "name": "Teams Notification",
+          "icon": "Bell",
+          "color": "bg-blue-700",
+          "description": "Send Microsoft Teams notification",
+          "marketplace": "skitionek/notify-microsoft-teams@master",
+          "config": {
+            "repository": "skitionek/notify-microsoft-teams@master",
+            "webhook_url": "${{ secrets.MSTEAMS_WEBHOOK }}",
+            "needs": "build",
+            "run": ""
+          }
+        }
+      ]
+    },
+    {
+      "title": "Utilities & Tools",
+      "nodes": [
+        {
+          "type": "upload-artifact",
+          "name": "Upload Artifact",
+          "icon": "Upload",
+          "color": "bg-gray-600",
+          "description": "Upload build artifacts",
+          "marketplace": "actions/upload-artifact@v3",
+          "config": {
+            "repository": "actions/upload-artifact@v3",
+            "name": "build-artifacts",
+            "path": "dist/",
+            "run": ""
+          }
+        },
+        {
+          "type": "download-artifact",
+          "name": "Download Artifact",
+          "icon": "Download",
+          "color": "bg-gray-500",
+          "description": "Download build artifacts",
+          "marketplace": "actions/download-artifact@v3",
+          "config": {
+            "repository": "actions/download-artifact@v3",
+            "name": "build-artifacts",
+            "path": "dist/",
+            "run": ""
+          }
+        },
+        {
+          "type": "create-release",
+          "name": "Create Release",
+          "icon": "Archive",
+          "color": "bg-green-700",
+          "description": "Create GitHub release",
+          "marketplace": "actions/create-release@v1",
+          "config": {
+            "repository": "actions/create-release@v1",
+            "tag_name": "${{ github.ref }}",
+            "release_name": "Release ${{ github.ref }}",
+            "draft": false,
+            "prerelease": false,
+            "run": ""
+          }
+        },
+        {
+          "type": "semantic-release",
+          "name": "Semantic Release",
+          "icon": "Package",
+          "color": "bg-teal-600",
+          "description": "Automated semantic versioning",
+          "marketplace": "cycjimmy/semantic-release-action@v3",
+          "config": {
+            "repository": "cycjimmy/semantic-release-action@v3",
+            "semantic_version": 19,
+            "extra_plugins": "@semantic-release/changelog@6.0.0",
+            "run": ""
+          }
+        }
+      ]
+    }
+  ]
+} 
