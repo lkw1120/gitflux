@@ -15,6 +15,11 @@
             "fetch-depth": 1,
             "token": "${{ github.token }}",
             "ref": "${{ github.head_ref }}",
+            "submodules": false,
+            "ssh-key": "",
+            "persist-credentials": true,
+            "path": "",
+            "clean": true,
             "run": ""
           }
         },
@@ -30,6 +35,7 @@
             "path": "~/.npm",
             "key": "${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}",
             "restore-keys": "${{ runner.os }}-node-",
+            "fail-on-cache-miss": false,
             "run": ""
           }
         }
@@ -50,6 +56,9 @@
             "node-version": "18",
             "cache": "npm",
             "registry-url": "https://registry.npmjs.org/",
+            "check-latest": false,
+            "always-auth": false,
+            "scope": "",
             "run": ""
           }
         },
@@ -65,6 +74,9 @@
             "java-version": "11",
             "distribution": "temurin",
             "cache": "maven",
+            "server-id": "",
+            "server-username": "",
+            "server-password": "",
             "run": ""
           }
         },
@@ -79,6 +91,8 @@
             "repository": "actions/setup-python@v4",
             "python-version": "3.9",
             "cache": "pip",
+            "architecture": "x64",
+            "allow-prereleases": false,
             "run": ""
           }
         },
@@ -93,6 +107,7 @@
             "repository": "actions/setup-go@v4",
             "go-version": "1.19",
             "cache": true,
+            "check-latest": false,
             "run": ""
           }
         },
@@ -106,6 +121,7 @@
           "config": {
             "repository": "actions/setup-dotnet@v3",
             "dotnet-version": "6.0.x",
+            "include-prereleases": false,
             "run": ""
           }
         },
@@ -120,6 +136,7 @@
             "repository": "ruby/setup-ruby@v1",
             "ruby-version": "3.0",
             "bundler": "latest",
+            "bundler-cache": true,
             "run": ""
           }
         }
@@ -139,6 +156,7 @@
             "repository": "gradle/gradle-build-action@v2",
             "arguments": "build",
             "build-root-directory": ".",
+            "gradle-home-cache-cleanup": true,
             "run": ""
           }
         },
@@ -165,6 +183,13 @@
             "context": ".",
             "push": true,
             "tags": "${{ github.repository }}:latest",
+            "file": "Dockerfile",
+            "build-args": "",
+            "platforms": "",
+            "cache-from": "",
+            "cache-to": "",
+            "outputs": "",
+            "provenance": false,
             "run": ""
           }
         },
@@ -177,6 +202,10 @@
           "marketplace": "docker/setup-buildx-action@v3",
           "config": {
             "repository": "docker/setup-buildx-action@v3",
+            "driver-opts": "",
+            "buildkitd-flags": "",
+            "install": true,
+            "use": true,
             "run": ""
           }
         }
@@ -197,6 +226,10 @@
             "default-branch": "main",
             "github-token": "${{ secrets.GITHUB_TOKEN }}",
             "validate-all-codebase": false,
+            "linter": "",
+            "filter-regex": "",
+            "env": "",
+            "args": "",
             "run": ""
           }
         },
@@ -211,6 +244,9 @@
             "repository": "codecov/codecov-action@v3",
             "token": "${{ secrets.CODECOV_TOKEN }}",
             "file": "./coverage.xml",
+            "flags": "",
+            "name": "",
+            "fail_ci_if_error": false,
             "run": ""
           }
         },
@@ -223,10 +259,9 @@
           "marketplace": "SonarSource/sonarcloud-github-action@master",
           "config": {
             "repository": "SonarSource/sonarcloud-github-action@master",
-            "env": {
-              "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}",
-              "SONAR_TOKEN": "${{ secrets.SONAR_TOKEN }}"
-            },
+            "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}",
+            "SONAR_TOKEN": "${{ secrets.SONAR_TOKEN }}",
+            "args": "--coverage-reports=coverage.xml",
             "run": ""
           }
         },
@@ -242,6 +277,7 @@
             "name": "Test Results",
             "path": "test-results.xml",
             "reporter": "jest-junit",
+            "fail-on": "errors",
             "run": ""
           }
         }
@@ -259,6 +295,9 @@
           "marketplace": "actions/dependency-review-action@v3",
           "config": {
             "repository": "actions/dependency-review-action@v3",
+            "fail-on-severity": "moderate",
+            "allow-licenses": "",
+            "deny-licenses": "",
             "run": ""
           }
         },
@@ -272,6 +311,11 @@
           "config": {
             "repository": "github/codeql-action/analyze@v2",
             "languages": "javascript",
+            "queries": "",
+            "config-file": "",
+            "ram": "",
+            "threads": "",
+            "category": "",
             "run": ""
           }
         },
@@ -284,9 +328,8 @@
           "marketplace": "snyk/actions/node@master",
           "config": {
             "repository": "snyk/actions/node@master",
-            "env": {
-              "SNYK_TOKEN": "${{ secrets.SNYK_TOKEN }}"
-            },
+            "SNYK_TOKEN": "${{ secrets.SNYK_TOKEN }}",
+            "args": "",
             "run": ""
           }
         }
@@ -307,6 +350,10 @@
             "aws-access-key-id": "${{ secrets.AWS_ACCESS_KEY_ID }}",
             "aws-secret-access-key": "${{ secrets.AWS_SECRET_ACCESS_KEY }}",
             "aws-region": "us-east-1",
+            "role-to-assume": "",
+            "role-session-name": "",
+            "role-duration-seconds": "",
+            "output-credentials": false,
             "run": ""
           }
         },
@@ -320,6 +367,7 @@
           "config": {
             "repository": "azure/login@v1",
             "creds": "${{ secrets.AZURE_CREDENTIALS }}",
+            "enable-AzPSSession": false,
             "run": ""
           }
         },
@@ -333,6 +381,9 @@
           "config": {
             "repository": "google-github-actions/auth@v1",
             "credentials_json": "${{ secrets.GCP_SA_KEY }}",
+            "project_id": "",
+            "service_account": "",
+            "workload_identity_provider": "",
             "run": ""
           }
         },
@@ -348,6 +399,9 @@
             "vercel-token": "${{ secrets.VERCEL_TOKEN }}",
             "vercel-org-id": "${{ secrets.ORG_ID }}",
             "vercel-project-id": "${{ secrets.PROJECT_ID }}",
+            "vercel-args": "",
+            "working-directory": "",
+            "alias-domains": "",
             "run": ""
           }
         },
@@ -363,6 +417,9 @@
             "publish-dir": "./dist",
             "github-token": "${{ secrets.GITHUB_TOKEN }}",
             "deploy-message": "Deploy from GitHub Actions",
+            "production-branch": "main",
+            "enable-pull-request-comment": true,
+            "enable-commit-comment": true,
             "run": ""
           }
         },
@@ -378,6 +435,8 @@
             "heroku_api_key": "${{ secrets.HEROKU_API_KEY }}",
             "heroku_app_name": "your-app-name",
             "heroku_email": "your-email@example.com",
+            "appdir": "",
+            "procfile": "",
             "run": ""
           }
         }
@@ -419,6 +478,7 @@
             "repository": "samuelmeuli/action-electron-builder@v1",
             "github_token": "${{ secrets.github_token }}",
             "release": true,
+            "publish": "draft",
             "run": ""
           }
         }
@@ -439,6 +499,11 @@
             "status": "${{ job.status }}",
             "webhook_url": "${{ secrets.SLACK_WEBHOOK }}",
             "channel": "#ci-cd",
+            "text": "",
+            "attachments": "",
+            "fields": "",
+            "icon_emoji": "",
+            "username": "",
             "run": ""
           }
         },
@@ -452,9 +517,7 @@
           "config": {
             "repository": "Ilshidur/action-discord@master",
             "args": "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.",
-            "env": {
-              "DISCORD_WEBHOOK": "${{ secrets.DISCORD_WEBHOOK }}"
-            },
+            "webhook": "${{ secrets.DISCORD_WEBHOOK }}",
             "run": ""
           }
         },
@@ -469,6 +532,8 @@
             "repository": "skitionek/notify-microsoft-teams@master",
             "webhook_url": "${{ secrets.MSTEAMS_WEBHOOK }}",
             "needs": "build",
+            "status": "${{ job.status }}",
+            "text": "",
             "run": ""
           }
         }
@@ -488,6 +553,9 @@
             "repository": "actions/upload-artifact@v3",
             "name": "build-artifacts",
             "path": "dist/",
+            "if-no-files-found": "warn",
+            "retention-days": 90,
+            "compression-level": 6,
             "run": ""
           }
         },
@@ -502,6 +570,8 @@
             "repository": "actions/download-artifact@v3",
             "name": "build-artifacts",
             "path": "dist/",
+            "pattern": "",
+            "merge-multiple": false,
             "run": ""
           }
         },
@@ -518,6 +588,9 @@
             "release_name": "Release ${{ github.ref }}",
             "draft": false,
             "prerelease": false,
+            "body": "",
+            "body_path": "",
+            "files": "",
             "run": ""
           }
         },
@@ -532,6 +605,8 @@
             "repository": "cycjimmy/semantic-release-action@v3",
             "semantic_version": 19,
             "extra_plugins": "@semantic-release/changelog@6.0.0",
+            "branches": "main",
+            "dry_run": false,
             "run": ""
           }
         }

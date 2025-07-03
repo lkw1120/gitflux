@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { validateUserInput, sanitizeNodeName, sanitizeConfigValue } from "@/lib/utils"
 import { TriggerSettings } from "./trigger-settings"
+import { nodesData } from "@/lib/nodes-data"
 
 export function NodeConfig() {
   const { nodes, selectedNode, updateNode } = usePipeline()
@@ -138,30 +139,19 @@ export function NodeConfig() {
   }
 
   const resetNodeConfig = () => {
-    // 노드 타입에 따른 기본 설정으로 초기화
-    const defaultConfig = getDefaultNodeConfig(node.type)
-    updateNode(node.id, { config: defaultConfig })
-  }
-
-  const getDefaultNodeConfig = (nodeType: string): Record<string, string | number | boolean> => {
-    switch (nodeType) {
-      case 'checkout':
-        return { repository: '', ref: 'main', token: '' }
-      case 'setup-node':
-        return { 'node-version': '18', cache: 'npm' }
-      case 'run':
-        return { command: '', shell: 'bash' }
-      case 'cache':
-        return { path: 'node_modules', key: 'node-${{ hashFiles(\'**/package-lock.json\') }}' }
-      case 'upload-artifact':
-        return { name: 'artifact', path: 'dist/', 'retention-days': 30 }
-      case 'download-artifact':
-        return { name: 'artifact', path: 'dist/' }
-      case 'deploy':
-        return { environment: 'production', strategy: 'rolling' }
-      default:
-        return {}
+    // 원본 데이터에서 찾기
+    for (const category of nodesData.nodeCategories) {
+      const originalNode = category.nodes.find(n => n.type === node.type)
+      if (originalNode) {
+        const { run, ...originalConfig } = originalNode.config
+        updateNode(node.id, { config: originalConfig as Record<string, string | number | boolean> })
+        return
+      }
     }
+    
+    // 원본 데이터에 없는 경우 - 명확한 에러 처리
+    console.error(`Invalid node type: ${node.type}`)
+    // 사용자에게 알림 또는 노드 제거
   }
 
   return (
