@@ -3,8 +3,8 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
-  title: 'GitFlux - Instant CI/CD Pipeline Builder',
-  description: 'Instant CI/CD Pipeline Builder for GitHub Actions',
+  title: 'GitFlux - Low-Code CI/CD Pipeline Builder',
+  description: 'Low-Code CI/CD Pipeline Builder for GitHub Actions',
   generator: 'GitFlux',
 }
 

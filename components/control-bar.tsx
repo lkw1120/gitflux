@@ -19,7 +19,7 @@ export function ControlBar() {
     <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4 fixed top-0 left-0 w-full z-50" style={{height: '64px'}}>
       <div className="flex items-center justify-between">
         <div className="text-xl font-bold text-gray-900 dark:text-white">
-          Instant CI/CD Pipeline Builder
+        Low-Code CI/CD Pipeline Builder
         </div>
         <div className="flex items-center space-x-2">
           <Button
