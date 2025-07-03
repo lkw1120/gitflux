@@ -52,12 +52,17 @@ pnpm dev
 
 ### Available Node Categories
 
-- **Source Control**: Checkout, Cache
-- **Language & Runtime Setup**: Node.js, Java, Python, Go, .NET, Ruby
-- **Build & Package**: Gradle, Maven, Docker Build & Push
-- **Testing & Quality**: Super Linter, CodeQL, and more
-- **Deployment**: Various deployment actions
-- **Custom Actions**: Add your own custom actions
+| Category                        | Nodes                                                                                          |
+|---------------------------------|------------------------------------------------------------------------------------------------|
+| Source Control                  | Checkout, Cache                                                                                |
+| Language & Runtime Setup        | Setup Node.js, Setup Java, Setup Python, Setup Go, Setup .NET, Setup Ruby                      |
+| Build & Package                 | Gradle Build, Maven Build, Docker Build & Push, Docker Setup Buildx                            |
+| Testing & Quality               | Super Linter, Codecov, SonarCloud Scan, Test Reporter                                          |
+| Security & Compliance           | Dependency Review, CodeQL Analysis, Snyk Security                                              |
+| Cloud & Deployment              | Configure AWS, Azure Login, GCP Auth, Deploy to Vercel, Deploy to Netlify, Deploy to Heroku    |
+| Mobile & Desktop                | Android Build, iOS Build, Electron Build                                                       |
+| Notifications & Communication   | Slack Notification, Discord Notification, Teams Notification                                   |
+| Utilities & Tools               | Upload Artifact, Download Artifact, Create Release, Semantic Release                           |
 
 ## 🏗️ Project Structure
 
