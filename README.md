@@ -69,8 +69,8 @@ gitflux/
 │   ├── pipeline-*.tsx     # Pipeline-related components
 │   └── ...
 ├── lib/                   # Utility functions and data
-├── public/                # Static assets
 │   └── github-actions-nodes.json  # Node definitions
+├── public/                # Static assets
 └── styles/                # Global styles
 ```
 
