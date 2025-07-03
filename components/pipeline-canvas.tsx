@@ -324,6 +324,22 @@ export function PipelineCanvas() {
     }
   }
 
+  // 캔버스 마운트 시 중앙이 (0,0)이 되도록 패닝
+  useEffect(() => {
+    if (canvasRef.current) {
+      const w = canvasRef.current.clientWidth;
+      const h = canvasRef.current.clientHeight;
+      setPan({ x: w / 2, y: h / 2 });
+    }
+  }, []);
+
+  // 노드 위치 clamp 함수
+  function clampNodePosition(x: number, y: number) {
+    const clampedX = Math.max(-2000, Math.min(2000, x));
+    const clampedY = Math.max(-1500, Math.min(1500, y));
+    return { x: clampedX, y: clampedY };
+  }
+
   // 노드 드롭 처리 함수 - 위치 정보를 매개변수로 받음 (Firefox 비동기 처리용)
   const handleNodeDropWithPosition = (
     nodeData: { type: string; name: string; config: Record<string, unknown> }, 
@@ -336,18 +352,16 @@ export function PipelineCanvas() {
       // 마우스 위치를 캔버스 기준으로 변환
       const canvasX = mouseX - canvasRect.left
       const canvasY = mouseY - canvasRect.top
-      
       // transform을 역산하여 실제 노드 좌표 계산
       // transform: translate(${pan.x}px, ${pan.y}px) scale(${scale})의 역산
-      const x = (canvasX - pan.x) / scale
-      const y = (canvasY - pan.y) / scale
-
-      // Drop calculation completed
-
+      let x = (canvasX - pan.x) / scale
+      let y = (canvasY - pan.y) / scale
+      // clamp 적용
+      const clamped = clampNodePosition(x, y)
       addNode({
         type: nodeData.type,
         name: nodeData.name,
-        position: { x, y },
+        position: clamped,
         config: nodeData.config as Record<string, string | number | boolean>,
         inputs: [],
         outputs: [],

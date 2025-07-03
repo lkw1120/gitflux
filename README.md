@@ -15,7 +15,7 @@ A visual, drag-and-drop CI/CD pipeline builder for GitHub Actions. Build complex
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **UI Components**: Radix UI, Tailwind CSS
-- **Pipeline Visualization**: ReactFlow
+- **Pipeline Visualization**: Custom Canvas Implementation
 - **Form Handling**: React Hook Form with Zod validation
 - **YAML Processing**: js-yaml
 - **Icons**: Lucide React, React Icons
@@ -94,6 +94,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - [GitHub Actions](https://github.com/features/actions) for the workflow system
-- [ReactFlow](https://reactflow.dev/) for the pipeline visualization
+- Custom Canvas Implementation for the pipeline visualization
 - [Radix UI](https://www.radix-ui.com/) for the component library
 - [Tailwind CSS](https://tailwindcss.com/) for the styling framework

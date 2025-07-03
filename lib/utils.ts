@@ -1,66 +1,9 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import type { PipelineNode, PipelineConnection } from "@/components/pipeline-context"
-import type { Node, Edge } from "reactflow"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
-
-// ReactFlow와 커스텀 시스템 간 데이터 변환 유틸리티
-export function customNodesToReactFlowNodes(customNodes: PipelineNode[]): Node[] {
-  return customNodes.map((node) => ({
-    id: node.id,
-    type: "custom",
-    position: node.position,
-    data: {
-      label: node.name,
-      type: node.type,
-      config: node.config,
-      // 커스텀 노드에서 필요한 추가 데이터
-      customNode: node,
-    },
-  }))
-}
-
-export function customConnectionsToReactFlowEdges(customConnections: PipelineConnection[]): Edge[] {
-  return customConnections.map((connection) => ({
-    id: connection.id,
-    source: connection.source,
-    target: connection.target,
-    sourceHandle: connection.sourceHandle,
-    targetHandle: connection.targetHandle,
-    type: "smoothstep", // 부드러운 곡선 연결선
-    style: {
-      stroke: "#6b7280",
-      strokeWidth: 3,
-    },
-    data: {
-      customConnection: connection,
-    },
-  }))
-}
-
-export function reactFlowNodesToCustomNodes(reactFlowNodes: Node[]): PipelineNode[] {
-  return reactFlowNodes.map((node) => ({
-    id: node.id,
-    type: node.data?.type || "unknown",
-    name: node.data?.label || "Unnamed",
-    position: node.position,
-    config: node.data?.config || {},
-    inputs: [],
-    outputs: [],
-  }))
-}
-
-export function reactFlowEdgesToCustomConnections(reactFlowEdges: Edge[]): PipelineConnection[] {
-  return reactFlowEdges.map((edge) => ({
-    id: edge.id,
-    source: edge.source,
-    target: edge.target,
-    sourceHandle: edge.sourceHandle || undefined,
-    targetHandle: edge.targetHandle || undefined,
-  }))
 }
 
 // Debounce 함수

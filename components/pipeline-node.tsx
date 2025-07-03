@@ -170,9 +170,14 @@ export const PipelineNode = memo(function PipelineNode({ node }: Props) {
         // 노드의 새로운 위치 계산 (드래그 시작 시 노드 위치 + 마우스 이동 거리)
         const newX = dragRef.current.startNodeX + (canvasX - startCanvasX)
         const newY = dragRef.current.startNodeY + (canvasY - startCanvasY)
-        
+        // clamp 적용
+        const clampNodePosition = (x: number, y: number) => {
+          const clampedX = Math.max(-2000, Math.min(2000, x));
+          const clampedY = Math.max(-1500, Math.min(1500, y));
+          return { x: clampedX, y: clampedY };
+        };
         updateNode(node.id, {
-          position: { x: Math.max(0, newX), y: Math.max(0, newY) },
+          position: clampNodePosition(newX, newY),
         })
       }
     }
