@@ -94,6 +94,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - [GitHub Actions](https://github.com/features/actions) for the workflow system
-- Custom Canvas Implementation for the pipeline visualization
 - [Radix UI](https://www.radix-ui.com/) for the component library
 - [Tailwind CSS](https://tailwindcss.com/) for the styling framework
